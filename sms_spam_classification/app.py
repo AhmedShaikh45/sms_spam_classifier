@@ -4,6 +4,9 @@ import string
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
+import os
+
+
 
 # Download required NLTK data (safe to call)
 nltk.download('punkt')
@@ -36,8 +39,11 @@ def transform_text(text):
     return " ".join(y)
 
 # Load trained model and vectorizer
-tfidf = pickle.load(open("vectorizer.pkl", "rb"))
-model = pickle.load(open("model.pkl", "rb"))
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+tfidf = pickle.load(open(os.path.join(BASE_DIR, "vectorizer.pkl"), "rb"))
+model = pickle.load(open(os.path.join(BASE_DIR, "model.pkl"), "rb"))
+
 
 st.title('Email / SMS Spam Classifier')
 
@@ -62,4 +68,5 @@ if st.button("Predict"):
             st.error("Spam 🚨")
         else:
             st.success("Not Spam ✅")
+
 
