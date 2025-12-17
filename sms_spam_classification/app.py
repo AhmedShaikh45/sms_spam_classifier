@@ -6,11 +6,16 @@ from nltk.corpus import stopwords
 from nltk.stem.porter import PorterStemmer
 import os
 
+@st.cache_resource
+def download_nltk_data():
+    nltk.download('punkt')
+    nltk.download('punkt_tab')
+    nltk.download('stopwords')
+
+download_nltk_data()
 
 
-# Download required NLTK data (safe to call)
-nltk.download('punkt')
-nltk.download('stopwords')
+
 
 ps = PorterStemmer()
 
@@ -68,5 +73,6 @@ if st.button("Predict"):
             st.error("Spam 🚨")
         else:
             st.success("Not Spam ✅")
+
 
 
